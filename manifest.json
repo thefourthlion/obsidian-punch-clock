@@ -1,0 +1,11 @@
+{
+	"id": "punch-clock",
+	"name": "Punch Clock",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "A full-featured punch clock app for Obsidian. Clock in/out of multiple tasks simultaneously, visualize your work history with beautiful calendar views, and analyze your productivity patterns.",
+	"author": "Your Name",
+	"authorUrl": "",
+	"fundingUrl": "",
+	"isDesktopOnly": false
+}

@@ -1,0 +1,43 @@
+{
+	"name": "obsidian-punch-clock",
+	"version": "1.0.0",
+	"description": "A full-featured punch clock app for Obsidian. Clock in/out of multiple tasks simultaneously, visualize your work history with beautiful calendar views, and analyze your productivity patterns.",
+	"main": "main.js",
+	"scripts": {
+		"dev": "node esbuild.config.mjs",
+		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production"
+	},
+	"keywords": [
+		"obsidian",
+		"obsidian-plugin",
+		"punch-clock",
+		"punch clock",
+		"clock-in",
+		"clockin",
+		"time-clock",
+		"time-tracking",
+		"time-tracker",
+		"productivity",
+		"time-management",
+		"calendar",
+		"task-management",
+		"pomodoro",
+		"time-log",
+		"activity-tracker",
+		"work-tracking",
+		"time-analysis",
+		"productivity-tool",
+		"workflow",
+		"timesheet"
+	],
+	"author": "Your Name",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/node": "^16.11.6",
+		"builtin-modules": "^3.3.0",
+		"esbuild": "0.17.3",
+		"obsidian": "latest",
+		"tslib": "2.4.0",
+		"typescript": "4.7.4"
+	}
+}
