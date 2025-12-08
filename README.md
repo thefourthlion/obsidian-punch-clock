@@ -1,14 +1,14 @@
-# ⏰ Punch Clock
+# ⏰ Time Punch Clock
 
-> A full-featured punch clock app for Obsidian. Clock in/out of multiple tasks simultaneously, visualize your work history with beautiful calendar views, and analyze your productivity patterns.
+> A full-featured punch clock app. Clock in/out of multiple tasks simultaneously, visualize your work history with beautiful calendar views, and analyze your productivity patterns.
 
-![Punch Clock](https://img.shields.io/badge/Obsidian-Plugin-purple?style=for-the-badge&logo=obsidian)
+![Time Punch Clock](https://img.shields.io/badge/Obsidian-Plugin-purple?style=for-the-badge&logo=obsidian)
 ![Version](https://img.shields.io/badge/version-1.0.0-blue?style=for-the-badge)
 ![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
 
-## 🎯 What is Punch Clock?
+## 🎯 What is Time Punch Clock?
 
-Punch Clock is a complete time tracking solution built right into Obsidian. Think of it as your personal punch clock—punch in when you start work, punch out when you're done. Track multiple tasks at once, see your entire work history in beautiful calendar views, and understand exactly where your time goes.
+Time Punch Clock is a complete time tracking solution built right into Obsidian. Think of it as your personal punch clock—punch in when you start work, punch out when you're done. Track multiple tasks at once, see your entire work history in beautiful calendar views, and understand exactly where your time goes.
 
 ## ✨ Features
 
@@ -40,8 +40,8 @@ Punch Clock is a complete time tracking solution built right into Obsidian. Thin
 
 ## 🚀 Quick Start
 
-1. **Install Punch Clock** from Obsidian's Community Plugins
-2. **Click the clock icon** in the left ribbon to open Punch Clock
+1. **Install Time Punch Clock** from Obsidian's Community Plugins
+2. **Click the clock icon** in the left ribbon to open Time Punch Clock
 3. **Create your first task** - Type a name and press Enter
 4. **Punch in** - Click any task card to start tracking
 5. **Punch out** - Click the active task card again to stop
@@ -53,7 +53,7 @@ Punch Clock is a complete time tracking solution built right into Obsidian. Thin
 
 **Punch in:**
 - Click any task card (play icon appears)
-- Or use command palette: "Punch Clock: Quick Punch In/Out"
+- Or use command palette: "Time Punch Clock: Quick Punch In/Out"
 
 **Punch out:**
 - Click the active task card again (stop icon appears)
@@ -132,8 +132,8 @@ Punch Clock is a complete time tracking solution built right into Obsidian. Thin
 
 ## ⌨️ Commands
 
-- `Punch Clock: Open Punch Clock Panel` - Open the main Punch Clock view
-- `Punch Clock: Quick Punch In/Out (Last Task)` - Toggle tracking for most recent task
+- `Time Punch Clock: Open Time Punch Clock Panel` - Open the main Time Punch Clock view
+- `Time Punch Clock: Quick Punch In/Out (Last Task)` - Toggle tracking for most recent task
 
 ## 🎨 Customization
 

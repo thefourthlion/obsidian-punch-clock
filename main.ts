@@ -433,7 +433,7 @@ class ClockInView extends ItemView {
 	}
 
 	getDisplayText(): string {
-		return 'Punch Clock';
+		return 'Time Punch Clock';
 	}
 
 	getIcon(): string {
@@ -1312,14 +1312,14 @@ export default class ClockInPlugin extends Plugin {
 		);
 
 		// Add ribbon icon to open the view
-		this.addRibbonIcon('clock', 'Open Punch Clock', () => {
+		this.addRibbonIcon('clock', 'Open Time Punch Clock', () => {
 			this.activateView();
 		});
 
 		// Add command to open view
 		this.addCommand({
 			id: 'open-clockin-view',
-			name: 'Open Punch Clock Panel',
+			name: 'Open Time Punch Clock Panel',
 			callback: () => {
 				this.activateView();
 			}
@@ -1362,11 +1362,11 @@ export default class ClockInPlugin extends Plugin {
 			}, 1000)
 		);
 
-		console.log('Punch Clock plugin loaded!');
+		console.log('Time Punch Clock plugin loaded!');
 	}
 
 	onunload() {
-		console.log('Punch Clock plugin unloaded!');
+		console.log('Time Punch Clock plugin unloaded!');
 	}
 
 	async activateView() {
