@@ -1,185 +1,63 @@
 # ⏰ Time Punch Clock
 
-> A full-featured punch clock app. Clock in/out of multiple tasks simultaneously, visualize your work history with beautiful calendar views, and analyze your productivity patterns.
+> Track your time with a simple punch in/out system. Multiple tasks, beautiful calendars, full history.
 
-![Time Punch Clock](https://img.shields.io/badge/Obsidian-Plugin-purple?style=for-the-badge&logo=obsidian)
+![Obsidian](https://img.shields.io/badge/Obsidian-Plugin-purple?style=for-the-badge&logo=obsidian)
 ![Version](https://img.shields.io/badge/version-1.0.0-blue?style=for-the-badge)
 ![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
 
-## 🎯 What is Time Punch Clock?
+<p align="center">
+  <img src="screenshots/tasks-screenshot.png" alt="Tasks View" width="350">
+  <img src="screenshots/calendar-month-screenshot.png" alt="Calendar View" width="350">
+</p>
 
-Time Punch Clock is a complete time tracking solution built right into Obsidian. Think of it as your personal punch clock—punch in when you start work, punch out when you're done. Track multiple tasks at once, see your entire work history in beautiful calendar views, and understand exactly where your time goes.
+## Features
 
-## ✨ Features
+- **Multi-task tracking** — Punch into multiple tasks at once
+- **Real-time timers** — Live countdown for active sessions
+- **Calendar views** — Daily, weekly, monthly, yearly
+- **Color-coded tasks** — Custom colors for visual organization
+- **Search & filter** — Find any time entry instantly
+- **Edit history** — Modify or delete past entries
+- **Local storage** — All data stays in your vault
 
-### 🕐 Punch In/Out System
-- **Multi-task tracking** - Punch into multiple tasks simultaneously
-- **One-click start/stop** - Simple, intuitive punch in/out interface
-- **Color-coded tasks** - Visual organization with custom colors
-- **Real-time timers** - Live updates on all active punch-in sessions
-- **Quick commands** - Fast access via command palette
+## Quick Start
 
-### 📊 Beautiful Calendar Views
-- **Daily View** - Hourly timeline with task breakdown
-- **Weekly View** - 7-day grid with visual task distribution
-- **Monthly View** - Full calendar with day-by-day tracking
-- **Yearly View** - Annual overview with trends and insights
+1. Click the **clock icon** in the left ribbon
+2. Type a task name → **Create Task**
+3. Click a task card to **punch in**
+4. Click again to **punch out**
 
-### 📈 Analytics & Insights
-- **Time summaries** - Total time per day, week, month, year
-- **Task breakdown** - See percentage distribution across all tasks
-- **Visual charts** - Bar charts, heatmaps, and timeline visualizations
-- **Search & filter** - Quickly find specific punch-in entries
-- **Edit & delete** - Full control over your time logs
+## Calendar Views
 
-### 🎨 Modern Design
-- **Beautiful UI** - Clean, professional interface
-- **Dark mode ready** - Seamlessly matches Obsidian themes
-- **Smooth animations** - Polished interactions throughout
-- **Responsive layout** - Works perfectly in any panel size
+<p align="center">
+  <img src="screenshots/calendar-day-screenshot.png" alt="Daily View" width="280">
+  <img src="screenshots/calendar-week-screenshot.png" alt="Weekly View" width="280">
+  <img src="screenshots/calendar-month-screenshot.png" alt="Monthly View" width="280">
+</p>
 
-## 🚀 Quick Start
+| View | What it shows |
+|------|---------------|
+| **Daily** | Hourly timeline + task breakdown |
+| **Weekly** | 7-day grid with time per day |
+| **Monthly** | Full calendar with daily totals |
+| **Yearly** | 12-month overview + trends |
 
-1. **Install Time Punch Clock** from Obsidian's Community Plugins
-2. **Click the clock icon** in the left ribbon to open Time Punch Clock
-3. **Create your first task** - Type a name and press Enter
-4. **Punch in** - Click any task card to start tracking
-5. **Punch out** - Click the active task card again to stop
-6. **Explore your calendar** - Switch to Calendar tab to see your time visualized
+## Commands
 
-## 📖 How to Use
+| Command | Action |
+|---------|--------|
+| `Open Time Punch Clock Panel` | Open the main view |
+| `Quick Punch In/Out` | Toggle last used task |
 
-### Punching In/Out
+## Data & Privacy
 
-**Punch in:**
-- Click any task card (play icon appears)
-- Or use command palette: "Time Punch Clock: Quick Punch In/Out"
+All data is stored locally in your vault as JSON. No cloud sync, no external servers.
 
-**Punch out:**
-- Click the active task card again (stop icon appears)
-- Or click the stop button in the active header
+## License
 
-**Track multiple tasks:**
-- Click multiple task cards to punch into several activities simultaneously
-- Each task runs its own independent timer
-
-### Managing Tasks
-
-**Create tasks:**
-- Type task name in the input field
-- Press Enter or click "Create Task"
-
-**Customize tasks:**
-- Click the colored dot to change task color
-- Choose from 12 preset colors or pick a custom color
-
-**Delete tasks:**
-- Hover over a task card
-- Click the × button in the top-left corner
-
-### Calendar Views
-
-**Daily View:**
-- See hourly timeline of your day
-- View task breakdown with percentages
-- See total time tracked
-
-**Weekly View:**
-- 7-day grid showing all days of the week
-- Scroll horizontally to see all days
-- Use navigation arrows to scroll 4 days at a time
-- Visual bars show task distribution per day
-
-**Monthly View:**
-- Full calendar month layout
-- Day cells show total time and task names
-- Task distribution chart at the top
-- Color indicators show which tasks were active
-
-**Yearly View:**
-- 12-month overview
-- Monthly bar chart showing trends
-- Annual task breakdown
-- Perfect for long-term analysis
-
-### Managing Time Entries
-
-**Edit entries:**
-- Hover over any time entry
-- Click the edit icon (pencil)
-- Change task assignment or duration
-- Save to update totals
-
-**Delete entries:**
-- Hover over any time entry
-- Click the delete icon (trash)
-- Time is removed from task totals
-
-**Search & filter:**
-- Use search bar to find entries by task name or date
-- Use filter dropdown to show only specific tasks
-- Entries sorted newest first
-
-## 🎯 Use Cases
-
-- **Freelancers** - Track billable hours for different clients
-- **Employees** - Punch in/out for different projects
-- **Students** - Monitor study time across subjects
-- **Developers** - Track time on different projects/features
-- **Writers** - Monitor writing time vs research time
-- **Entrepreneurs** - Analyze time distribution across business activities
-- **Anyone** - Understand where your time actually goes
-
-## ⌨️ Commands
-
-- `Time Punch Clock: Open Time Punch Clock Panel` - Open the main Time Punch Clock view
-- `Time Punch Clock: Quick Punch In/Out (Last Task)` - Toggle tracking for most recent task
-
-## 🎨 Customization
-
-### Task Colors
-- 12 beautiful preset colors
-- Unlimited custom colors via color picker
-- Colors used throughout calendar views
-
-### View Preferences
-- Switch between Tasks and Calendar tabs
-- Navigate time periods with arrow buttons
-- Jump to today with one click
-- Scroll through weekly view
-
-## 📊 Data & Privacy
-
-- **Local storage** - All data stays in your vault
-- **No cloud sync** - Your time data is private
-- **Export ready** - Data stored in standard JSON format
-- **Full control** - Edit or delete anything anytime
-
-## 🔧 Technical Details
-
-- **Minimum Obsidian version**: 0.15.0
-- **Platform**: Desktop & Mobile
-- **Performance**: Lightweight and fast
-- **Data format**: JSON (human-readable)
-
-## 🤝 Contributing
-
-We welcome contributions! Whether it's:
-- 🐛 Bug reports
-- 💡 Feature suggestions
-- 🔧 Code improvements
-- 📝 Documentation updates
-
-## 📝 License
-
-MIT License - Free to use, modify, and distribute.
-
-## 🙏 Acknowledgments
-
-Built with ❤️ for the Obsidian community. Punch in. Track your time. Make it count.
+MIT — Free to use, modify, and distribute.
 
 ---
 
-**Keywords**: punch clock, punch-clock, clock in, clockin, time clock, time tracking, obsidian plugin, productivity, time management, calendar, task timer, work tracking, activity tracker, time analysis, timesheet, workflow
-
-**Social**: #PunchClock #TimeTracking #ObsidianPlugin #ProductivityTool #ClockIn
+Built for the Obsidian community ❤️
