@@ -8,7 +8,6 @@
 
 <p align="center">
   <img src="screenshots/tasks-screenshot.png" alt="Tasks View" width="350">
-  <img src="screenshots/calendar-month-screenshot.png" alt="Calendar View" width="350">
 </p>
 
 ## Features
