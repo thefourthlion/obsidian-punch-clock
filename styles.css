@@ -32,6 +32,7 @@
 	width: 24px;
 	height: 24px;
 	flex-shrink: 0;
+	color: var(--icon-color, var(--interactive-accent));
 }
 
 .active-header-info {
@@ -180,6 +181,7 @@
 	justify-content: center;
 	opacity: 0.7;
 	transition: opacity 0.15s ease;
+	color: var(--icon-color, var(--text-muted));
 }
 
 .clockin-task-card:hover .task-play-stop {
@@ -847,6 +849,8 @@
 	border-radius: 3px;
 	min-width: 4px;
 	flex: 1;
+	background-color: var(--entry-color, var(--interactive-accent));
+	opacity: 0.8;
 	transition: opacity 0.2s ease;
 }
 
@@ -1094,6 +1098,7 @@
 	right: 4px;
 	height: 3px;
 	border-radius: 2px;
+	background: var(--indicator-bg, var(--interactive-accent));
 }
 
 /* Charts */
@@ -1154,6 +1159,10 @@
 	border-radius: 6px 6px 0 0;
 	transition: height 0.3s ease;
 	min-height: 4px;
+}
+
+.chart-bar-gradient {
+	background: linear-gradient(to top, var(--interactive-accent), var(--interactive-accent-hover));
 }
 
 .chart-info {

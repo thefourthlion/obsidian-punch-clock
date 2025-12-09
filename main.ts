@@ -1,4 +1,4 @@
-import { App, Plugin, PluginSettingTab, Setting, Notice, ItemView, WorkspaceLeaf, Modal } from 'obsidian';
+import { App, Plugin, Notice, ItemView, WorkspaceLeaf, Modal, setIcon } from 'obsidian';
 
 // ============ Data Types ============
 
@@ -60,7 +60,7 @@ const VIEW_TYPE_CLOCKIN = 'clockin-view';
 // ============ Helper Functions ============
 
 function generateId(): string {
-	return Date.now().toString(36) + Math.random().toString(36).substr(2);
+	return Date.now().toString(36) + Math.random().toString(36).substring(2);
 }
 
 function formatDuration(ms: number): string {
@@ -135,19 +135,6 @@ function getEndOfMonth(date: Date): Date {
 	return d;
 }
 
-function getStartOfYear(date: Date): Date {
-	const d = new Date(date);
-	d.setMonth(0, 1);
-	d.setHours(0, 0, 0, 0);
-	return d;
-}
-
-function getEndOfYear(date: Date): Date {
-	const d = new Date(date);
-	d.setMonth(11, 31);
-	d.setHours(23, 59, 59, 999);
-	return d;
-}
 
 function formatDate(date: Date): string {
 	return date.toLocaleDateString('en-US', { 
@@ -211,13 +198,6 @@ interface DayData {
 	taskBreakdown: { [taskId: string]: number };
 }
 
-interface WeekData {
-	startDate: Date;
-	endDate: Date;
-	days: DayData[];
-	totalTime: number;
-	taskBreakdown: { [taskId: string]: number };
-}
 
 interface MonthData {
 	date: Date;
@@ -226,12 +206,6 @@ interface MonthData {
 	taskBreakdown: { [taskId: string]: number };
 }
 
-interface YearData {
-	year: number;
-	months: MonthData[];
-	totalTime: number;
-	taskBreakdown: { [taskId: string]: number };
-}
 
 // ============ Color Picker Modal ============
 
@@ -247,7 +221,7 @@ class ColorPickerModal extends Modal {
 		this.onSave = onSave;
 	}
 
-	onOpen() {
+	onOpen(): void {
 		const { contentEl } = this;
 		contentEl.empty();
 		contentEl.addClass('clockin-color-modal');
@@ -264,7 +238,7 @@ class ColorPickerModal extends Modal {
 			
 			colorBtn.addEventListener('click', () => {
 				this.task.color = color;
-				this.plugin.saveData_();
+				void this.plugin.saveData_();
 				this.onSave();
 				this.close();
 			});
@@ -282,13 +256,13 @@ class ColorPickerModal extends Modal {
 
 		colorInput.addEventListener('change', (e) => {
 			this.task.color = (e.target as HTMLInputElement).value;
-			this.plugin.saveData_();
+			void this.plugin.saveData_();
 			this.onSave();
 			this.close();
 		});
 	}
 
-	onClose() {
+	onClose(): void {
 		const { contentEl } = this;
 		contentEl.empty();
 	}
@@ -308,12 +282,12 @@ class EditEntryModal extends Modal {
 		this.onSave = onSave;
 	}
 
-	onOpen() {
+	onOpen(): void {
 		const { contentEl } = this;
 		contentEl.empty();
 		contentEl.addClass('clockin-edit-modal');
 
-		contentEl.createEl('h3', { text: 'Edit Time Entry' });
+		contentEl.createEl('h3', { text: 'Edit time entry' });
 
 		// Task selection
 		const taskSection = contentEl.createDiv({ cls: 'edit-entry-section' });
@@ -345,7 +319,7 @@ class EditEntryModal extends Modal {
 
 		// Start time display (read-only)
 		const startTimeSection = contentEl.createDiv({ cls: 'edit-entry-section' });
-		startTimeSection.createEl('label', { text: 'Start Time:' });
+		startTimeSection.createEl('label', { text: 'Start time:' });
 		startTimeSection.createEl('div', { 
 			text: formatTimestamp(this.entry.startTime),
 			cls: 'edit-entry-readonly'
@@ -395,7 +369,7 @@ class EditEntryModal extends Modal {
 			this.entry.duration = newDuration;
 			this.entry.endTime = this.entry.startTime + newDuration;
 
-			this.plugin.saveData_();
+			void this.plugin.saveData_();
 			this.onSave();
 			this.close();
 			new Notice('Entry updated!');
@@ -406,7 +380,7 @@ class EditEntryModal extends Modal {
 		});
 	}
 
-	onClose() {
+	onClose(): void {
 		const { contentEl } = this;
 		contentEl.empty();
 	}
@@ -440,12 +414,12 @@ class ClockInView extends ItemView {
 		return 'clock';
 	}
 
-	async onOpen() {
+	async onOpen(): Promise<void> {
 		this.render();
 		this.startTimerUpdate();
 	}
 
-	async onClose() {
+	async onClose(): Promise<void> {
 		this.stopTimerUpdate();
 	}
 
@@ -544,8 +518,8 @@ class ClockInView extends ItemView {
 				activeHeader.style.borderLeftColor = activeTask.color;
 				
 				const activeIcon = activeHeader.createDiv({ cls: 'active-header-icon' });
-				activeIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>`;
-				activeIcon.style.color = activeTask.color;
+				setIcon(activeIcon, 'circle');
+				activeIcon.setCssProps({ '--icon-color': activeTask.color });
 				
 				const activeInfo = activeHeader.createDiv({ cls: 'active-header-info' });
 				activeInfo.createDiv({ cls: 'active-header-label', text: 'Currently tracking' });
@@ -555,7 +529,7 @@ class ClockInView extends ItemView {
 				activeTime.textContent = formatDuration(currentSession);
 
 				const stopBtn = activeHeader.createDiv({ cls: 'active-header-stop' });
-				stopBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>`;
+				setIcon(stopBtn, 'square');
 				stopBtn.addEventListener('click', () => {
 					this.plugin.clockOut(session.taskId);
 					this.render();
@@ -628,11 +602,11 @@ class ClockInView extends ItemView {
 			const playStopIcon = taskCard.createDiv({ cls: 'task-play-stop' });
 			if (isActive) {
 				// Stop icon (square)
-				playStopIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>`;
+				setIcon(playStopIcon, 'square');
 			} else {
 				// Play icon (triangle)
-				playStopIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>`;
-				playStopIcon.style.color = task.color;
+				setIcon(playStopIcon, 'play');
+				playStopIcon.setCssProps({ '--icon-color': task.color });
 			}
 
 			const taskTime = taskCard.createDiv({ cls: 'task-time' });
@@ -753,7 +727,7 @@ class ClockInView extends ItemView {
 			const entryActions = entryEl.createDiv({ cls: 'entry-actions' });
 			
 			const editBtn = entryActions.createDiv({ cls: 'entry-action-btn entry-edit-btn' });
-			editBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>`;
+			setIcon(editBtn, 'pencil');
 			editBtn.setAttribute('title', 'Edit entry');
 			editBtn.addEventListener('click', (e) => {
 				e.stopPropagation();
@@ -763,7 +737,7 @@ class ClockInView extends ItemView {
 			});
 
 			const deleteBtn = entryActions.createDiv({ cls: 'entry-action-btn entry-delete-btn' });
-			deleteBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>`;
+			setIcon(deleteBtn, 'trash');
 			deleteBtn.setAttribute('title', 'Delete entry');
 			deleteBtn.addEventListener('click', (e) => {
 				e.stopPropagation();
@@ -863,11 +837,12 @@ class ClockInView extends ItemView {
 			case 'daily':
 				text = formatDate(this.currentDate);
 				break;
-			case 'weekly':
-				const weekStart = getStartOfWeek(this.currentDate);
-				const weekEnd = getEndOfWeek(this.currentDate);
-				text = `${formatDate(weekStart)} - ${formatDate(weekEnd)}`;
+			case 'weekly': {
+				const weekStartDate = getStartOfWeek(this.currentDate);
+				const weekEndDate = getEndOfWeek(this.currentDate);
+				text = `${formatDate(weekStartDate)} - ${formatDate(weekEndDate)}`;
 				break;
+			}
 			case 'monthly':
 				text = formatMonthYear(this.currentDate);
 				break;
@@ -971,8 +946,7 @@ class ClockInView extends ItemView {
 						if (!task) continue;
 						
 						const entryBlock = hourBar.createDiv({ cls: 'timeline-entry' });
-						entryBlock.style.backgroundColor = task.color;
-						entryBlock.style.opacity = '0.8';
+						entryBlock.setCssProps({ '--entry-color': task.color });
 						entryBlock.setAttribute('title', `${task.name}: ${formatDuration(entry.duration)}`);
 					}
 				}
@@ -981,7 +955,6 @@ class ClockInView extends ItemView {
 	}
 
 	renderWeeklyView(container: HTMLElement) {
-		const weekStart = getStartOfWeek(this.currentDate);
 		const days = getDaysInWeek(this.currentDate);
 		
 		// Summary
@@ -1187,10 +1160,10 @@ class ClockInView extends ItemView {
 				if (colors.length > 0) {
 					const colorIndicator = dayCell.createDiv({ cls: 'day-cell-indicator' });
 					if (colors.length === 1) {
-						colorIndicator.style.backgroundColor = colors[0];
+						colorIndicator.setCssProps({ '--indicator-bg': colors[0] });
 					} else {
 						// Gradient for multiple tasks
-						colorIndicator.style.background = `linear-gradient(90deg, ${colors.join(', ')})`;
+						colorIndicator.setCssProps({ '--indicator-bg': `linear-gradient(90deg, ${colors.join(', ')})` });
 					}
 				}
 			}
@@ -1198,7 +1171,6 @@ class ClockInView extends ItemView {
 	}
 
 	renderYearlyView(container: HTMLElement) {
-		const year = this.currentDate.getFullYear();
 		const months = getMonthsInYear(this.currentDate);
 		
 		// Summary
@@ -1207,8 +1179,6 @@ class ClockInView extends ItemView {
 		const monthData: MonthData[] = [];
 		
 		for (const month of months) {
-			const monthStart = getStartOfMonth(month);
-			const monthEnd = getEndOfMonth(month);
 			const days = getDaysInMonthArray(month);
 			
 			let monthTotal = 0;
@@ -1262,7 +1232,7 @@ class ClockInView extends ItemView {
 				const chartBar = chartItem.createDiv({ cls: 'chart-bar-vertical' });
 				const height = maxMonth > 0 ? (month.totalTime / maxMonth) * 100 : 0;
 				chartBar.style.height = `${height}%`;
-				chartBar.style.background = 'linear-gradient(to top, var(--interactive-accent), var(--interactive-accent-hover))';
+				chartBar.addClass('chart-bar-gradient');
 				
 				const chartInfo = chartItem.createDiv({ cls: 'chart-info-vertical' });
 				chartInfo.createSpan({ cls: 'chart-month', text: month.date.toLocaleDateString('en-US', { month: 'short' }) });
@@ -1319,16 +1289,16 @@ export default class ClockInPlugin extends Plugin {
 		// Add command to open view
 		this.addCommand({
 			id: 'open-clockin-view',
-			name: 'Open Time Punch Clock Panel',
+			name: 'Open panel',
 			callback: () => {
-				this.activateView();
+				void this.activateView();
 			}
 		});
 
 		// Add command to quick clock in/out
 		this.addCommand({
 			id: 'quick-clock-toggle',
-			name: 'Quick Punch In/Out (Last Task)',
+			name: 'Quick punch in/out (last task)',
 			callback: () => {
 				if (this.data.activeSessions.length > 0) {
 					// Clock out the most recent session
@@ -1362,11 +1332,11 @@ export default class ClockInPlugin extends Plugin {
 			}, 1000)
 		);
 
-		console.log('Time Punch Clock plugin loaded!');
+		console.debug('Time Punch Clock plugin loaded!');
 	}
 
-	onunload() {
-		console.log('Time Punch Clock plugin unloaded!');
+	onunload(): void {
+		console.debug('Time Punch Clock plugin unloaded!');
 	}
 
 	async activateView() {
@@ -1392,8 +1362,9 @@ export default class ClockInPlugin extends Plugin {
 	refreshViews() {
 		const leaves = this.app.workspace.getLeavesOfType(VIEW_TYPE_CLOCKIN);
 		for (const leaf of leaves) {
-			const view = leaf.view as ClockInView;
-			view.render();
+			if (leaf.view instanceof ClockInView) {
+				leaf.view.render();
+			}
 		}
 	}
 
@@ -1429,7 +1400,7 @@ export default class ClockInPlugin extends Plugin {
 			createdAt: Date.now()
 		};
 		this.data.tasks.push(task);
-		this.saveData_();
+		void this.saveData_();
 		new Notice(`Task "${name}" created!`);
 		return task;
 	}
@@ -1444,7 +1415,7 @@ export default class ClockInPlugin extends Plugin {
 		const task = this.data.tasks.find(t => t.id === taskId);
 		this.data.tasks = this.data.tasks.filter(t => t.id !== taskId);
 		// Keep entries for historical purposes
-		this.saveData_();
+		void this.saveData_();
 		if (task) {
 			new Notice(`Task "${task.name}" deleted!`);
 		}
@@ -1468,7 +1439,7 @@ export default class ClockInPlugin extends Plugin {
 			taskId: taskId,
 			startTime: Date.now()
 		});
-		this.saveData_();
+		void this.saveData_();
 		
 		new Notice(`Started: ${task.name}`);
 	}
@@ -1512,7 +1483,7 @@ export default class ClockInPlugin extends Plugin {
 		// Update task total time
 		task.totalTime += duration;
 
-		this.saveData_();
+		void this.saveData_();
 		new Notice(`Stopped: ${task.name} (+${formatDuration(duration)})`);
 	}
 
@@ -1534,7 +1505,7 @@ export default class ClockInPlugin extends Plugin {
 
 		// Remove the entry
 		this.data.entries = this.data.entries.filter(e => e.id !== entryId);
-		this.saveData_();
+		void this.saveData_();
 		new Notice('Entry deleted!');
 		this.refreshViews();
 	}
