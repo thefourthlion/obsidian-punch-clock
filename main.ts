@@ -127,13 +127,6 @@ function getStartOfMonth(date: Date): Date {
 	return d;
 }
 
-function getEndOfMonth(date: Date): Date {
-	const d = new Date(date);
-	d.setMonth(d.getMonth() + 1);
-	d.setDate(0);
-	d.setHours(23, 59, 59, 999);
-	return d;
-}
 
 
 function formatDate(date: Date): string {
@@ -415,11 +408,13 @@ class ClockInView extends ItemView {
 	}
 
 	async onOpen(): Promise<void> {
+		await Promise.resolve();
 		this.render();
 		this.startTimerUpdate();
 	}
 
 	async onClose(): Promise<void> {
+		await Promise.resolve();
 		this.stopTimerUpdate();
 	}
 
@@ -551,7 +546,7 @@ class ClockInView extends ItemView {
 		});
 
 		const createBtn = createSection.createEl('button', {
-			text: 'Create Task',
+			text: 'Create task',
 			cls: 'clockin-create-btn'
 		});
 
@@ -662,7 +657,7 @@ class ClockInView extends ItemView {
 
 		const filterSelect = filterSection.createEl('select', { cls: 'clockin-filter-select' });
 		
-		const allOption = filterSelect.createEl('option', { value: '', text: 'All Tasks' });
+		const allOption = filterSelect.createEl('option', { value: '', text: 'All tasks' });
 		if (this.filterTaskId === '') allOption.selected = true;
 
 		for (const task of this.plugin.data.tasks) {
@@ -887,16 +882,16 @@ class ClockInView extends ItemView {
 		
 		// Summary card
 		const summaryCard = container.createDiv({ cls: 'calendar-summary-card' });
-		summaryCard.createEl('h3', { text: 'Daily Summary', cls: 'summary-title' });
+		summaryCard.createEl('h3', { text: 'Daily summary', cls: 'summary-title' });
 		
 		const totalTimeEl = summaryCard.createDiv({ cls: 'summary-total' });
-		totalTimeEl.createSpan({ cls: 'summary-label', text: 'Total Time:' });
+		totalTimeEl.createSpan({ cls: 'summary-label', text: 'Total time:' });
 		totalTimeEl.createSpan({ cls: 'summary-value', text: formatDuration(dayData.totalTime) });
 
 		// Task breakdown
 		if (dayData.totalTime > 0) {
 			const breakdown = summaryCard.createDiv({ cls: 'summary-breakdown' });
-			breakdown.createEl('h4', { text: 'By Task', cls: 'breakdown-title' });
+			breakdown.createEl('h4', { text: 'By task', cls: 'breakdown-title' });
 			
 			const taskList = breakdown.createDiv({ cls: 'breakdown-list' });
 			
@@ -976,10 +971,10 @@ class ClockInView extends ItemView {
 		}
 
 		const summaryCard = container.createDiv({ cls: 'calendar-summary-card' });
-		summaryCard.createEl('h3', { text: 'Weekly Summary', cls: 'summary-title' });
+		summaryCard.createEl('h3', { text: 'Weekly summary', cls: 'summary-title' });
 		
 		const totalTimeEl = summaryCard.createDiv({ cls: 'summary-total' });
-		totalTimeEl.createSpan({ cls: 'summary-label', text: 'Total Time:' });
+		totalTimeEl.createSpan({ cls: 'summary-label', text: 'Total time:' });
 		totalTimeEl.createSpan({ cls: 'summary-value', text: formatDuration(weekTotal) });
 
 		// Navigation controls for week grid
@@ -1077,16 +1072,16 @@ class ClockInView extends ItemView {
 		}
 
 		const summaryCard = container.createDiv({ cls: 'calendar-summary-card' });
-		summaryCard.createEl('h3', { text: 'Monthly Summary', cls: 'summary-title' });
+		summaryCard.createEl('h3', { text: 'Monthly summary', cls: 'summary-title' });
 		
 		const totalTimeEl = summaryCard.createDiv({ cls: 'summary-total' });
-		totalTimeEl.createSpan({ cls: 'summary-label', text: 'Total Time:' });
+		totalTimeEl.createSpan({ cls: 'summary-label', text: 'Total time:' });
 		totalTimeEl.createSpan({ cls: 'summary-value', text: formatDuration(monthTotal) });
 
 		// Task breakdown chart
 		if (monthTotal > 0) {
 			const chartCard = container.createDiv({ cls: 'calendar-chart-card' });
-			chartCard.createEl('h4', { text: 'Task Distribution', cls: 'chart-title' });
+			chartCard.createEl('h4', { text: 'Task distribution', cls: 'chart-title' });
 			
 			const chartContainer = chartCard.createDiv({ cls: 'chart-container' });
 			
@@ -1212,16 +1207,16 @@ class ClockInView extends ItemView {
 		}
 
 		const summaryCard = container.createDiv({ cls: 'calendar-summary-card' });
-		summaryCard.createEl('h3', { text: 'Yearly Summary', cls: 'summary-title' });
+		summaryCard.createEl('h3', { text: 'Yearly summary', cls: 'summary-title' });
 		
 		const totalTimeEl = summaryCard.createDiv({ cls: 'summary-total' });
-		totalTimeEl.createSpan({ cls: 'summary-label', text: 'Total Time:' });
+		totalTimeEl.createSpan({ cls: 'summary-label', text: 'Total time:' });
 		totalTimeEl.createSpan({ cls: 'summary-value', text: formatDuration(yearTotal) });
 
 		// Year overview chart
 		if (yearTotal > 0) {
 			const chartCard = container.createDiv({ cls: 'calendar-chart-card' });
-			chartCard.createEl('h4', { text: 'Monthly Overview', cls: 'chart-title' });
+			chartCard.createEl('h4', { text: 'Monthly overview', cls: 'chart-title' });
 			
 			const chartContainer = chartCard.createDiv({ cls: 'chart-container chart-bars' });
 			const maxMonth = Math.max(...monthData.map(m => m.totalTime));
@@ -1243,7 +1238,7 @@ class ClockInView extends ItemView {
 		// Task breakdown
 		if (yearTotal > 0) {
 			const taskCard = container.createDiv({ cls: 'calendar-chart-card' });
-			taskCard.createEl('h4', { text: 'Task Distribution', cls: 'chart-title' });
+			taskCard.createEl('h4', { text: 'Task distribution', cls: 'chart-title' });
 			
 			const taskContainer = taskCard.createDiv({ cls: 'chart-container' });
 			
@@ -1283,7 +1278,7 @@ export default class ClockInPlugin extends Plugin {
 
 		// Add ribbon icon to open the view
 		this.addRibbonIcon('clock', 'Open Time Punch Clock', () => {
-			this.activateView();
+			void this.activateView();
 		});
 
 		// Add command to open view
@@ -1462,11 +1457,12 @@ export default class ClockInPlugin extends Plugin {
 
 		if (!sessionToStop) return;
 
-		const task = this.data.tasks.find(t => t.id === sessionToStop!.taskId);
+		const stoppedSession = sessionToStop;
+		const task = this.data.tasks.find(t => t.id === stoppedSession.taskId);
 		if (!task) return;
 
 		const endTime = Date.now();
-		const duration = endTime - sessionToStop.startTime;
+		const duration = endTime - stoppedSession.startTime;
 
 		// Create time entry
 		const entry: TimeEntry = {
@@ -1474,7 +1470,7 @@ export default class ClockInPlugin extends Plugin {
 			taskId: task.id,
 			taskName: task.name,
 			taskColor: task.color,
-			startTime: sessionToStop.startTime,
+			startTime: stoppedSession.startTime,
 			endTime: endTime,
 			duration: duration
 		};
