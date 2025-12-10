@@ -400,7 +400,7 @@ class ClockInView extends ItemView {
 	}
 
 	getDisplayText(): string {
-		return 'Time Punch Clock';
+		return 'Time punch clock';
 	}
 
 	getIcon(): string {
@@ -1277,7 +1277,7 @@ export default class ClockInPlugin extends Plugin {
 		);
 
 		// Add ribbon icon to open the view
-		this.addRibbonIcon('clock', 'Open Time Punch Clock', () => {
+		this.addRibbonIcon('clock', 'Open time punch clock', () => {
 			void this.activateView();
 		});
 
@@ -1310,7 +1310,7 @@ export default class ClockInPlugin extends Plugin {
 						new Notice(`Clocked in: ${task.name}`);
 					}
 				} else {
-					new Notice('No tasks created yet. Open Clock In panel to create tasks.');
+					new Notice('No tasks created yet. Open clock in panel to create tasks.');
 				}
 				this.refreshViews();
 			}
@@ -1350,7 +1350,7 @@ export default class ClockInPlugin extends Plugin {
 		}
 
 		if (leaf) {
-			workspace.revealLeaf(leaf);
+			void workspace.revealLeaf(leaf);
 		}
 	}
 
