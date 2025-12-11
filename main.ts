@@ -1327,11 +1327,11 @@ export default class ClockInPlugin extends Plugin {
 			}, 1000)
 		);
 
-		console.debug('Time Punch Clock plugin loaded!');
+		console.debug('Time punch clock plugin loaded!');
 	}
 
 	onunload(): void {
-		console.debug('Time Punch Clock plugin unloaded!');
+		console.debug('Time punch clock plugin unloaded!');
 	}
 
 	async activateView() {
