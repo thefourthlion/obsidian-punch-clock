@@ -1376,7 +1376,7 @@ export default class ClockInPlugin extends Plugin {
 			statusBarItem.textContent = `⏱ ${sessionTexts}`;
 			statusBarItem.addClass('active');
 		} else {
-			statusBarItem.textContent = '⏱ Not clocked in';
+			statusBarItem.textContent = '⏱ not clocked in';
 			statusBarItem.removeClass('active');
 		}
 	}
